@@ -1,25 +1,24 @@
 const Product = require("../models/product")
 
 exports.getAddProduct = (req, res, next) => {
-    res.render("add-product", {
+    res.render("admin/add-product", {
         pageTitle: "Add Product",
         path: "/admin/add-product"
     })
 };
 
 exports.postAddProducts = (req, res, next) => {
-    const product = new Product(req.body.title);
+    const product = new Product(req.body.title, req.body.imageUrl, req.body.description, req.body.price);
     product.save();
     res.redirect('/');
 };
 
 exports.getProducts = (req, res, next) => {
     const products = Product.fetchAll(products => {
-        res.render('shop', {
+        res.render('admin/products', {
             prods: products, 
             pageTitle: "Shop",
-            path: "/"
+            path: "/admin/products"
         });
     });
 };
-
